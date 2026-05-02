@@ -9,6 +9,9 @@ import {
     Alert,
 } from "react-native";
 import Ionicons from "@react-native-vector-icons/ionicons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../App";
 
 import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
@@ -18,9 +21,10 @@ interface LoginProps {
     onLogin: (id: Id<"users">) => void
 }
 
-const LoginScreen = ({ onLogin } : LoginProps) => {
+const LoginScreen = ({ onLogin }: LoginProps) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, "Login">>();
 
     const loginMutation = useMutation(api.users.login)
 
@@ -111,7 +115,7 @@ const LoginScreen = ({ onLogin } : LoginProps) => {
 
                 <View style={styles.footer}>
                     <Text>Don't have an account? </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
                         <Text style={styles.linkText}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>

@@ -7,12 +7,12 @@ import {
   TextInput,
 } from "react-native";
 import Ionicons from "@react-native-vector-icons/ionicons";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../App";
 
-interface SignupProps {
-  onNavigateLogin?: () => void;
-}
-
-const SignupScreen = ({ onNavigateLogin }: SignupProps) => {
+const SignupScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, "Signup">>();
   return (
     <View style={styles.container}>
       {/* 1. Header Section */}
@@ -56,7 +56,7 @@ const SignupScreen = ({ onNavigateLogin }: SignupProps) => {
 
         <View style={styles.footer}>
           <Text>Already have an account? </Text>
-          <TouchableOpacity onPress={onNavigateLogin}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={styles.linkText}>Log In</Text>
           </TouchableOpacity>
         </View>
